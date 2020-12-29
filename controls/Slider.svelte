@@ -1,6 +1,6 @@
 <script>
   import { onMount, onDestroy } from "svelte";
-  import { GetOffsetLeft, GetOffsetTop } from "./Tools.svelte";
+  import { GetOffsetLeft, GetOffsetTop } from "../utils/Tools.svelte";
 
   export let vertical = false;
   export let Handler = undefined;

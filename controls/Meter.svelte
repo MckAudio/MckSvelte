@@ -1,5 +1,5 @@
 <script>
-  import { DbToLog } from "./Tools.svelte";
+  import { DbToLog } from "../utils/Tools.svelte";
 
   export let value = undefined;
   export let stereo = false;

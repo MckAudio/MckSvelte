@@ -1,5 +1,5 @@
 <script>
-  import { GetOffsetLeft, GetOffsetTop } from "./Tools.svelte";
+  import { GetOffsetLeft, GetOffsetTop } from "../utils/Tools.svelte";
   import { onMount, onDestroy } from "svelte";
 
   export let items = [];

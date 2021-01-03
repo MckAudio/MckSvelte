@@ -5,6 +5,7 @@
     export let Handler = undefined;
     export let active = false;
     export let label = undefined;
+    export let selected = false;
 
     let pad = undefined;
     let boxWidth = 0;
@@ -22,12 +23,16 @@
         height: 100%;
         border-radius: 8px;
         background-color: #f0f0f0;
+        border: 1px solid #e0e0e0;
         box-shadow: 0px 1px 4px 1px #555;
         cursor: pointer;
         overflow: hidden;
         user-select: none;
         display: grid;
         grid-template-rows: 1fr auto;
+    }
+    main.selected {
+        border-color: #ff9900;
     }
     .highlight {
         width: 100%;
@@ -45,9 +50,13 @@
         font-weight: bold;
         text-align: center;
     }
+    main.selected .label {
+        background-color: #ff9900;
+    }
 </style>
 
 <main
+    class="{selected ? 'selected' : ''}"
     bind:this={pad}
     bind:clientWidth={boxWidth}
     style="height: {2.0 * boxWidth}px"

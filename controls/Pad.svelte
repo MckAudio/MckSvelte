@@ -47,6 +47,7 @@
         width: 100%;
         height: 100%;
         border-radius: 8px;
+        border: 1px solid #e0e0e0;
         background-color: #f0f0f0;
         box-shadow: 0px 1px 4px 1px #555;
         cursor: pointer;
@@ -54,6 +55,9 @@
         user-select: none;
         display: grid;
         grid-template-rows: 1fr auto;
+    }
+    main.selected {
+        border-color: #ff9900;
     }
     .highlight {
         width: 100%;
@@ -70,10 +74,16 @@
         font-size: 14px;
         font-weight: bold;
         text-align: center;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    main.selected .label {
+        background-color: #ff9900;
     }
 </style>
 
 <main
+    class="{selected ? 'selected' : ''}"
     bind:this={pad}
     bind:clientWidth={boxWidth}
     style="height: {boxWidth}px"

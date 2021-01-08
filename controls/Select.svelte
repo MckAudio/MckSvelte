@@ -70,7 +70,7 @@
   }
 </style>
 
-<div class="opener" bind:this={opener} on:click={OpenSelect}>
+<div class="opener" bind:this={opener} on:click={OpenSelect} on:touchstart={OpenSelect}>
 <span class="text">
   {#if value === undefined || value === ''}
     <i>Select</i>
@@ -85,6 +85,14 @@
     {#each items as item, i}
       <div
         on:click={() => {
+          if (numeric) {
+            Handler(i);
+          } else {
+            Handler(item);
+          }
+          show = false;
+        }}
+        on:touchstart={() => {
           if (numeric) {
             Handler(i);
           } else {

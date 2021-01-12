@@ -22,7 +22,21 @@
     if (show && Opener) {
       Opener();
     }
+    _e.preventDefault();
+    _e.stopPropagation();
   }
+
+  function CloseSelect(_e) {
+    show = false;
+  }
+
+  onMount(()=>{
+    document.addEventListener('click', CloseSelect);
+  });
+
+  onDestroy(()=>{
+    document.removeEventListener('click', CloseSelect);
+  });
 </script>
 
 <style>
@@ -68,6 +82,10 @@
     user-select: none;
     cursor: pointer;
   }
+
+  .select > .active {
+    background-color: #555;
+  }
 </style>
 
 <div class="opener" bind:this={opener} on:click={OpenSelect} on:touchstart={OpenSelect}>
@@ -84,6 +102,7 @@
   <div class="select" style="left: {pos[0]}px; top: {pos[1]}px; min-width: {pos[2]}px;">
     {#each items as item, i}
       <div
+        class="{value === i ? 'active' : ''}"
         on:click={() => {
           if (numeric) {
             Handler(i);

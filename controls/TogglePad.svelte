@@ -4,6 +4,7 @@
 
     export let Handler = undefined;
     export let active = false;
+    export let value = 1.0;
     export let label = undefined;
     export let selected = false;
 
@@ -65,7 +66,7 @@
     {#if active}
         <div
             class="highlight"
-            style="background: radial-gradient(#0099ffff, #f0f0f000 200%);"
+            style="background: radial-gradient(#0099ffff, #f0f0f000 {Math.round(50+value*150.0)}%);"
             transition:fade="{{duration: 100}}" />
     {/if}
     {#if label}

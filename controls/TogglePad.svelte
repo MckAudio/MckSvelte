@@ -13,7 +13,7 @@
 
     function ButtonClick(_evt) {
         if (Handler) {
-            Handler(!active);
+            Handler(!active, value);
         }
     }
 </script>

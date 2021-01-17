@@ -34,6 +34,11 @@
 
 <div
   class="main {value ? 'active' : ''} {disabled ? 'disabled' : ''}"
+  on:touchstart={() => {
+    if (Handler && disabled == false) {
+      Handler();
+    }
+  }}
   on:click={() => {
     if (Handler && disabled == false) {
       Handler();

@@ -16,11 +16,11 @@
             return;
         }
         let _value = 0.0;
+        let _top = GetOffsetTop(pad);
         if (_evt.type === "mousedown") {
-            _value = 1.0 - _evt.offsetY / pad.clientHeight;
+            _value = 1.0 - (_evt.clientY - _top) / pad.clientHeight;
         } else if (_evt.type === "touchstart") {
             if (_evt.targetTouches.length > 0) {
-                let _top = GetOffsetTop(pad);
                 _value =
                     1.0 -
                     (_evt.targetTouches.item(0).clientY - _top) /

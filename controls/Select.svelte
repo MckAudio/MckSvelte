@@ -52,6 +52,9 @@
       background-color: #f0f0f0;
     border-radius: 2px;
     border: 1px solid #222;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    padding: 4px;
     cursor: pointer;
     overflow: hidden;
     display: grid;

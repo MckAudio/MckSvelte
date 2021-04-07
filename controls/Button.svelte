@@ -2,9 +2,37 @@
   export let Handler = undefined;
   export let value = undefined;
   export let disabled = false;
+  export let title = "";
 </script>
 
+<div
+  class="main {value ? 'active' : ''} {disabled ? 'disabled' : ''}"
+  on:touchstart={() => {
+    if (Handler && disabled == false) {
+      Handler(!value);
+    }
+  }}
+  on:click={() => {
+    if (Handler && disabled == false) {
+      Handler(!value);
+    }
+  }}
+>
+  <div />
+  <div>
+    {#if title !== ""}
+      {title}
+    {:else}
+      <slot />
+    {/if}
+  </div>
+  <div />
+</div>
+
 <style>
+  div {
+    user-select: none;
+  }
   .main {
     background-color: #f0f0f0;
     color: #222;
@@ -16,7 +44,7 @@
     cursor: pointer;
     font-family: mck-lato;
     font-size: 14px;
-
+    user-select: none;
     text-align: center;
     box-shadow: 0px 1px 2px 0px #555;
   }
@@ -31,22 +59,3 @@
     color: #555;
   }
 </style>
-
-<div
-  class="main {value ? 'active' : ''} {disabled ? 'disabled' : ''}"
-  on:touchstart={() => {
-    if (Handler && disabled == false) {
-      Handler(!value);
-    }
-  }}
-  on:click={() => {
-    if (Handler && disabled == false) {
-      Handler(!value);
-    }
-  }}>
-  <div />
-  <div>
-    <slot />
-  </div>
-  <div />
-</div>

@@ -24,8 +24,21 @@
 
   export function DbToLin(_db) {}
 
-  export function FormatPan(_pan) {
-    _pan = Math.round(_pan * 2.0 - 100.0);
+  export function PanToLin(_pan) {
+    return (_pan + 100.0) / 200.0;
+  }
+
+  export function LinToPan(_lin) {
+    return Math.round((_lin - 0.5) * 200.0);
+  }
+
+  export function FormatPan(_pan, _centered) {
+    _centered = _centered !== undefined ? _centered : false;
+    if (_centered) {
+      _pan = Math.round(_pan);
+    } else {
+      _pan = Math.round(_pan * 2.0 - 100.0);
+    }
     let _str = "";
     if (_pan == 0.0) {
       _str = "C";
@@ -58,7 +71,7 @@
       if (!isNaN(elem.scrollLeft)) {
         scrollLeft += elem.scrollLeft;
       }
-    } while((elem = elem.parentElement));
+    } while ((elem = elem.parentElement));
     return scrollLeft;
   }
   export function GetOffsetTop(elem) {

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let Handler = undefined;
   export let value = undefined;
   export let disabled = false;

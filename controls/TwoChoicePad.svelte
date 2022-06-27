@@ -20,8 +20,8 @@
     }
 </script>
 
-<main
-    class={selected ? "selected" : ""}
+<div
+    class="main {selected ? 'selected' : ''}"
     bind:this={pad}
     bind:clientWidth={boxWidth}
     style="height: {2.0 * boxWidth}px"
@@ -44,10 +44,10 @@
             <img src={icons[1]} alt={icons[1]} />
         {/if}
     </div>
-</main>
+</div>
 
 <style>
-    main {
+    .main {
         width: 100%;
         height: 100%;
         border-radius: 8px;
@@ -60,7 +60,7 @@
         display: grid;
         grid-template-rows: 1fr 1fr;
     }
-    main.selected {
+    .main.selected {
         border-color: #ff9900;
     }
     .highlight {

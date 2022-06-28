@@ -74,7 +74,7 @@
         grid-row: 2/-1;
         border-top: 1px solid #555;
         color: #555;
-        font-family: mck-lato;
+        font-family: 'mck-lato', 'Lato';
         font-size: 14px;
         font-weight: bold;
         text-align: center;
@@ -102,7 +102,7 @@
         grid-row: 3/4;
         grid-column: 2/3;
         color: #555;
-        font-family: mck-lato;
+        font-family: 'mck-lato', 'Lato';
         font-size: 11px;
     }
 </style>

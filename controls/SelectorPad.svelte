@@ -16,8 +16,8 @@
 
 <style>
     .main {
-        width: 100%;
-        height: 100%;
+        width: calc(100% - 2px);
+        height: calc(100% - 2px);
         border-radius: 8px;
         box-shadow: 0px 1px 4px 1px #555;
         cursor: pointer;
@@ -53,7 +53,7 @@
     }
     .label {
         grid-row: 2/3;
-        font-family: mck-lato;
+        font-family: 'mck-lato', 'Lato';
         font-size: 14px;
         font-weight: bold;
         text-align: center;

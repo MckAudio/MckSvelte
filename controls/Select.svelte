@@ -43,7 +43,7 @@
   .opener,
   .select {
     font-size: 14px;
-    font-family: mck-lato;
+    font-family: 'mck-lato', 'Lato';
     line-height: 20px;
     text-align: center;
         box-shadow: 0px 1px 2px 0px #555;

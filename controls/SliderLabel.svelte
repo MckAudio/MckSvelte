@@ -198,7 +198,7 @@
     mix-blend-mode: difference;
     text-align: center;
     font-size: 14px;
-    font-family: mck-lato;
+    font-family: 'mck-lato', 'Lato';
   }
   .fg {
     background-image: linear-gradient(90deg, #666, #222);

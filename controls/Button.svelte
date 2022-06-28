@@ -42,7 +42,7 @@
     height: calc(100% - 10px);
     padding: 4px;
     cursor: pointer;
-    font-family: mck-lato;
+    font-family: 'mck-lato', 'Lato';
     font-size: 14px;
     user-select: none;
     text-align: center;

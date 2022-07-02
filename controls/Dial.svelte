@@ -14,8 +14,6 @@
     let mousePosY = 0;
     let fingerPos = [0, 0];
 
-    $: console.log(fingerPos);
-
     function DisplayValue(v: number) {
         let normVal = (v - 0.5) * 1.0;
         let angle = 90.0 + normVal * 270.0;

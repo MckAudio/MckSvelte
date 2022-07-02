@@ -2,7 +2,7 @@
     import { fade } from "svelte/transition";
     import { GetOffsetTop } from "../utils/Tools.svelte";
 
-    export let Handler = undefined;
+    export let Handler: (value: number) => void = () => {};
     export let selected = false;
     export let label = undefined;
     export let style: "dark" | "light" | "custom" = "dark";
@@ -60,6 +60,7 @@
         user-select: none;
         display: grid;
         grid-template-rows: 1fr auto;
+        user-select: none;
     }
     .main.light {
         border: 1px solid #e0e0e0;

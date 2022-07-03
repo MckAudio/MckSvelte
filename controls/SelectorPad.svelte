@@ -24,7 +24,7 @@
         overflow: hidden;
         user-select: none;
         display: grid;
-        grid-template-rows: 1fr auto 1fr;
+        grid-template-rows: 2fr auto 3fr;
     }
     .main.light {
         border: 1px solid #e0e0e0;

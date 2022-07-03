@@ -1,41 +1,61 @@
 <script lang="ts">
     import { onDestroy, onMount } from "svelte";
     import { fade } from "svelte/transition";
+    import { DialSettings } from "./Types";
 
     export let style: "dark" | "light" | "custom" = "dark";
     export let value: number = 0.0;
-    export let label: string = undefined;
+    export let Handler: (val: number) => void = () => {};
+    export let settings: DialSettings = new DialSettings();
 
     let dragging = false;
     let touching = false;
     let knob: HTMLElement = undefined;
     let marker: HTMLElement = undefined;
     let curValue = -1.0;
+    let normValue = -1.0;
     let mousePosY = 0;
     let fingerPos = [0, 0];
 
-    function DisplayValue(v: number) {
-        let normVal = (v - 0.5) * 1.0;
-        let angle = 90.0 + normVal * 270.0;
+    function DisplayValue(v: number, s: DialSettings) {
+        let tmp = v;
+        if (s.extractValue !== undefined) {
+            tmp = s.extractValue(v);
+        }
+        normValue = tmp;
+        tmp = (tmp - 0.5) * 1.0;
+        let angle = 90.0 + tmp * 270.0;
 
         if (marker !== undefined) {
             marker.style.transform = `rotate(${angle}deg)`;
         }
     }
 
+    function ChangeValue(v: number) {
+        let tmp = v;
+        if (settings.formatValue(v)) {
+            tmp = settings.formatValue(v);
+        }
+        Handler(tmp);
+    }
+
     function MouseHandler(evt: MouseEvent) {
         switch (evt.type) {
             case "mousedown":
+                if (evt.ctrlKey && settings.default !== undefined) {
+                    Handler(settings.default);
+                    break;
+                }
                 dragging = true;
                 mousePosY = evt.clientY;
                 fingerPos = [evt.clientX, evt.clientY];
-                curValue = value;
+                curValue = normValue;
                 break;
             case "mousemove":
                 if (dragging) {
                     let tmp = curValue + (mousePosY - evt.clientY) / 100.0;
                     fingerPos = [evt.clientX, evt.clientY];
-                    value = Math.max(0.0, Math.min(1.0, tmp));
+                    ChangeValue(Math.max(0.0, Math.min(1.0, tmp)));
                     evt.stopPropagation();
                     evt.preventDefault();
                 }
@@ -86,7 +106,16 @@
         }
     }
 
-    $: DisplayValue(value);
+    function GetOverlayText(v: number) {
+        let tmp = v.toFixed(settings.dec);
+        if (settings.unit !== undefined) {
+            return `${tmp} ${settings.unit}`;
+        } else {
+            return tmp;
+        }
+    }
+
+    $: DisplayValue(value, settings);
 
     onMount(() => {
         window.addEventListener("mouseup", MouseHandler);
@@ -94,7 +123,7 @@
         window.addEventListener("touchend", TouchHandler);
         window.addEventListener("touchmove", TouchHandler);
 
-        DisplayValue(value);
+        DisplayValue(value, settings);
     });
     onDestroy(() => {
         window.removeEventListener("mouseup", MouseHandler);
@@ -108,9 +137,12 @@
     <div
         transition:fade
         class="overlay"
-        style="left: {Math.max(4, fingerPos[0] - 25)}px; top: {Math.max(4, fingerPos[1] - (touching ? 64 : 40))}px;"
+        style="left: {Math.max(4, fingerPos[0] - 25)}px; top: {Math.max(
+            4,
+            fingerPos[1] - (touching ? 64 : 40)
+        )}px;"
     >
-        {value.toFixed(2)}
+        {GetOverlayText(value)}
     </div>
 {/if}
 <div class="main">
@@ -138,8 +170,8 @@
             </div>
         </div>
     </div>
-    {#if label !== undefined}
-        <div class="label">{label}</div>
+    {#if settings.name !== undefined}
+        <div class="label">{settings.name}</div>
     {/if}
 </div>
 
@@ -202,7 +234,8 @@
         cursor: pointer;
         transition: opacity 250ms;
     }
-    .knob:hover, .knob.hover {
+    .knob:hover,
+    .knob.hover {
         opacity: 75%;
     }
     .marker {
@@ -222,7 +255,7 @@
         z-index: 3;
         border: 1px solid #ff9900;
         border-radius: 5px;
-        background-color: #3a3a3aaa;
+        background-color: #3a3a3add;
         color: #ff9900;
         font-family: "mck-lato", "Lato";
         font-size: 14px;

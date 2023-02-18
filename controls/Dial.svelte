@@ -136,7 +136,7 @@
 {#if dragging || touching}
     <div
         transition:fade
-        class="overlay"
+        class="overlay {style}"
         style="left: {Math.max(4, fingerPos[0] - 25)}px; top: {Math.max(
             4,
             fingerPos[1] - (touching ? 64 : 40)
@@ -145,7 +145,7 @@
         {GetOverlayText(value)}
     </div>
 {/if}
-<div class="main">
+<div class="main {style}">
     <div class="dial">
         <div class="pac">
             <div class="segment" />
@@ -196,7 +196,6 @@
         width: 100%;
         height: 100%;
         border-radius: 100%;
-        background-color: #3a3a3a;
         overflow: hidden;
     }
     .segment {
@@ -207,7 +206,6 @@
         left: 32px;
         transform: rotate(45deg);
         transform-origin: 0 0;
-        background-color: #2a2a2a;
     }
     .ring {
         top: 0%;
@@ -225,12 +223,8 @@
         top: 5%;
         border-radius: 100%;
     }
-    .fg {
-        background-color: #2a2a2a;
-    }
     .knob {
         overflow: hidden;
-        background-image: radial-gradient(#9a9a9a, #5a5a5a);
         cursor: pointer;
         transition: opacity 250ms;
     }
@@ -248,7 +242,6 @@
     .fill {
         height: 100%;
         width: 25%;
-        background-color: #333;
     }
     .overlay {
         position: absolute;
@@ -261,5 +254,42 @@
         font-size: 14px;
         padding: 8px;
         text-align: center;
+    }
+
+    .main.dark .pac {
+        background-color: #3a3a3a;
+    }
+    .main.dark .segment {
+        background-color: #2a2a2a;
+    }
+    .main.dark .fg {
+        background-color: #2a2a2a;
+    }
+    .main.dark .knob {
+        background-image: radial-gradient(#9a9a9a, #5a5a5a);
+    }
+    .main.dark .fill {
+        background-color: #3a3a3a;
+    }
+
+    .main.light .pac {
+        background-color: #b0b0b0;
+    }
+    .main.light .segment {
+        background-color: #fafafa;
+    }
+    .main.light .fg {
+        background-color: #fafafa;
+    }
+    .main.light .knob {
+        background-image: radial-gradient(#d0d0d0, #808080);
+    }
+    .main.light .fill {
+        background-color: #5a5a5a;
+    }
+    .overlay.light {
+        background-color: #f0f0f0dd;
+        color: #3a3a3a;
+        border-color: #3a3a3a;
     }
 </style>

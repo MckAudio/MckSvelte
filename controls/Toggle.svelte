@@ -37,7 +37,10 @@
         border-color: #606060;
         background-color: #303030;
     }
-    .bg.active {
+    .main.light .bg.active {
+        background-color: #0099ff !important;
+    }
+    .main.dark .bg.active {
         background-color: #ff9900 !important;
     }
 

@@ -29,14 +29,22 @@
     .main.light {
         border: 1px solid #e0e0e0;
         background-color: #f0f0f0;
+        color: #505050;
     }
     .main.dark {
         border: 1px solid #505050;
         background-color: #404040;
+        color: #f0f0f0;
     }
-    .main.selected {
+    .main.light.selected {
+        border-color: #0077dd;
+        background-color: #0099ff;
+        color: #fff;
+    }
+    .main.dark.selected {
         border-color: #dd7700;
         background-color: #ff9900;
+        color: #505050;
     }
     .highlight {
         width: 100%;
@@ -44,12 +52,6 @@
         border-radius: 8px;
         user-select: none;
         cursor: pointer;
-    }
-    .main.light .label {
-        color: #555;
-    }
-    .main.dark .label {
-        color: #e0e0e0;
     }
     .label {
         grid-row: 2/3;
@@ -59,9 +61,7 @@
         text-align: center;
         white-space: nowrap;
         text-overflow: clip;
-    }
-    .main.selected .label {
-        color: #555;
+        user-select: none;
     }
 </style>
 

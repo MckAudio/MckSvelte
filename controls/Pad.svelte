@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { onDestroy, onMount } from "svelte";
     import { fade } from "svelte/transition";
     import { GetOffsetTop } from "../utils/Tools.svelte";
 
@@ -11,6 +12,7 @@
     let boxWidth = 0;
     let active = false;
     let value = 0.0;
+    let mouseEnabled = true;
 
     let lightGradOne = "#0099ffff";
     let lightGradTwo = "#f0f0f000";
@@ -18,23 +20,38 @@
     $: lightGradOne = style === "dark" ? "#eeeeffff" : "#0099ffff";
     $: lightGradTwo = style === "dark" ? "#eeeeff00" : "#f0f0f000";
 
-    function ButtonClick(_evt) {
+    function MouseDown(_evt: MouseEvent) {
+        if (pad === undefined || mouseEnabled === false) {
+            return;
+        }
+        console.log("PAD MOUSE!", _evt);
+
+        let _value = 0.0;
+        let _top = GetOffsetTop(pad);
+        _value = 1.0 - (_evt.clientY - _top) / pad.clientHeight;
+        if (Handler) {
+            Handler(_value);
+        }
+        value = _value;
+        active = true;
+        window.setTimeout(() => {
+            active = false;
+        }, 50);
+    }
+
+    function TouchDown(_evt: TouchEvent) {
         if (pad === undefined) {
             return;
         }
+        console.log("PAD TOUCH!", _evt);
+
         let _value = 0.0;
         let _top = GetOffsetTop(pad);
-        if (_evt.type === "mousedown") {
-            _value = 1.0 - (_evt.clientY - _top) / pad.clientHeight;
-        } else if (_evt.type === "touchstart") {
-            if (_evt.targetTouches.length > 0) {
-                _value =
-                    1.0 -
-                    (_evt.targetTouches.item(0).clientY - _top) /
-                        pad.clientHeight;
-            } else {
-                return;
-            }
+        if (_evt.targetTouches.length > 0) {
+            _value =
+                1.0 -
+                (_evt.targetTouches.item(0).clientY - _top) / pad.clientHeight;
+            mouseEnabled = false;
         } else {
             return;
         }
@@ -45,9 +62,42 @@
         active = true;
         window.setTimeout(() => {
             active = false;
+            mouseEnabled = true;
         }, 50);
+        window.setTimeout(() => {
+            mouseEnabled = true;
+        }, 5000);
     }
+
+    onMount(() => {
+        pad.addEventListener("touchstart", TouchDown, { passive: true });
+        pad.addEventListener("mousedown", MouseDown, { passive: true });
+    });
+
+    onDestroy(() => {
+        pad.removeEventListener("touchstart", TouchDown);
+        pad.removeEventListener("mousedown", MouseDown);
+    });
 </script>
+
+<div
+    class="main {style} {selected ? 'selected' : ''}"
+    bind:this={pad}
+    bind:clientWidth={boxWidth}
+    style="touch-action: none; height: {boxWidth}px"
+>
+    {#if active}
+        <div
+            class="highlight"
+            style="background: radial-gradient({lightGradOne}, {lightGradTwo} {25.0 +
+                value * 225.0}%);"
+            out:fade
+        />
+    {/if}
+    {#if label !== undefined}
+        <div class="label">{label}</div>
+    {/if}
+</div>
 
 <style>
     .main {
@@ -96,7 +146,7 @@
     }
     .label {
         grid-row: 2/-1;
-        font-family: 'mck-lato', 'Lato';
+        font-family: "mck-lato", "Lato";
         font-size: 14px;
         font-weight: bold;
         text-align: center;
@@ -108,21 +158,3 @@
         color: #555;
     }
 </style>
-
-<div
-    class="main {style} {selected ? 'selected' : ''}"
-    bind:this={pad}
-    bind:clientWidth={boxWidth}
-    style="height: {boxWidth}px"
-    on:mousedown={(_evt) => ButtonClick(_evt)}
-    on:touchstart={(_evt) => ButtonClick(_evt)}>
-    {#if active}
-        <div
-            class="highlight"
-            style="background: radial-gradient({lightGradOne}, {lightGradTwo} {25.0 + value * 225.0}%);"
-            out:fade />
-    {/if}
-    {#if label !== undefined}
-        <div class="label">{label}</div>
-    {/if}
-</div>

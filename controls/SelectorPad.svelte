@@ -58,7 +58,7 @@
         font-weight: bold;
         text-align: center;
         white-space: nowrap;
-        text-overflow: ellipsis;
+        text-overflow: clip;
     }
     .main.selected .label {
         color: #555;

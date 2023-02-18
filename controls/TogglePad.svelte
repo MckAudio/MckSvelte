@@ -109,7 +109,6 @@
     class="main {style} {selected ? 'selected' : ''} {emphasize ? 'emphasize' : ''}"
     bind:this={pad}
     bind:clientWidth={boxWidth}
-    style="height: {1.5 * boxWidth - 2}px"
     on:mousedown={(_evt) => ButtonClick(_evt)}
     on:touchstart={(_evt) => ButtonClick(_evt)}>
     {#if active}

@@ -4,11 +4,12 @@
     export let selected = false;
     export let label = undefined;
     export let style: "dark" | "light" | "custom" = "dark";
+    export let disabled = false;
 
     let boxWidth = 0;
 
     function ButtonClick(_evt) {
-        if (Handler) {
+        if (Handler && disabled === false) {
             Handler(!selected);
         }
     }
@@ -19,7 +20,6 @@
         width: calc(100% - 2px);
         height: calc(100% - 2px);
         border-radius: 8px;
-        box-shadow: 0px 1px 4px 1px #555;
         cursor: pointer;
         overflow: hidden;
         user-select: none;
@@ -30,11 +30,13 @@
         border: 1px solid #e0e0e0;
         background-color: #f0f0f0;
         color: #505050;
+        box-shadow: 0px 1px 4px 1px #555;
     }
     .main.dark {
         border: 1px solid #505050;
         background-color: #404040;
         color: #f0f0f0;
+        box-shadow: 0px 1px 4px 1px #202020;
     }
     .main.light.selected {
         border-color: #0077dd;
@@ -44,7 +46,7 @@
     .main.dark.selected {
         border-color: #dd7700;
         background-color: #ff9900;
-        color: #505050;
+        color: #303030;
     }
     .highlight {
         width: 100%;
@@ -63,10 +65,14 @@
         text-overflow: clip;
         user-select: none;
     }
+    .main.disabled {
+        cursor: not-allowed;
+        opacity: 50%;
+    }
 </style>
 
 <div
-    class="main {style} {selected ? 'selected' : ''}"
+    class="main {style} {selected ? 'selected' : ''} {disabled ? 'disabled' : ''}"
     on:mousedown={(_evt) => ButtonClick(_evt)}
     on:touchstart={(_evt) => ButtonClick(_evt)}>
     <div class="label">{label}</div>

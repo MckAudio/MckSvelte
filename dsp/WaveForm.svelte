@@ -1,6 +1,7 @@
-<script>
+<script lang="ts">
 
     export let data = undefined;
+    export let style: "dark" | "light" | "custom" = "dark";
 
     let wave = [];
     let wavePath = "";
@@ -32,16 +33,28 @@
             return;
         }
         let _str = `M 0 ${h / 2.0}`;
+
+        let factor = 5.0;
+
+        let len = Math.min(w*factor, data[0].length/factor);
+        for (let i = 0; i < len; i++)
+        {
+            _str += ` L ${(i + 1)/factor} ${(data[0][i] + 1.0) * h / 2.0}`;
+        }
+        wavePath = _str;
+
+        /*
         data[0].forEach((_v, _i) => {
             _str += ` L ${_i + 1} ${(_v + 1.0) * h / 2.0}`;
         });
         wavePath = _str;
         waveW = data[0].length;
+        */
     }
 </script>
 
-<div class="main" bind:clientHeight={h} bind:clientWidth={w}>
-    <svg height="{h}px" width="{waveW}px">
+<div class="main {style}" bind:clientHeight={h} bind:clientWidth={w}>
+    <svg height="{h}px" width="{w}px">
         {#if wavePath !== ""}
             <path d="{wavePath}"/>
         {/if}
@@ -54,5 +67,11 @@
         height: 100%;
         overflow-y: hidden;
         overflow-x: auto;
+    }
+    .main.dark path {
+        fill:#ff9900;
+    }
+    .main.light path {
+        fill: #0099ff;
     }
 </style>

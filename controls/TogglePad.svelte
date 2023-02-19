@@ -33,7 +33,6 @@
         border-radius: 8px;
         background-color: #f0f0f0;
         border: 1px solid #e0e0e0;
-        box-shadow: 0px 1px 4px 1px #555;
         cursor: pointer;
         overflow: hidden;
         user-select: none;
@@ -44,10 +43,12 @@
         background-color: #404040;
         border-color: #505050;
         color: #e0e0e0;
+        box-shadow: 0px 1px 4px 1px #202020;
     }
     .main.light {
         background-color: #f0f0f0;
         border-color: #e0e0e0;
+        box-shadow: 0px 1px 4px 1px #555;
     }
     .main.light.emphasize {
         background-color: #e9e9e9;

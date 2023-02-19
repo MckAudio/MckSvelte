@@ -104,7 +104,6 @@
         width: calc(100% - 2px);
         height: calc(100% - 2px);
         border-radius: 8px;
-        box-shadow: 0px 1px 4px 1px #555;
         cursor: pointer;
         overflow: hidden;
         user-select: none;
@@ -115,10 +114,12 @@
     .main.light {
         border: 1px solid #e0e0e0;
         background-color: #f0f0f0;
+        box-shadow: 0px 1px 4px 1px #555;
     }
     .main.dark {
         border: 1px solid #505050;
         background-color: #404040;
+        box-shadow: 0px 1px 4px 1px #202020;
     }
     .main.selected {
         border-color: #dd7700;

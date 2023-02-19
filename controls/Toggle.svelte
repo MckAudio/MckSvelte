@@ -66,6 +66,6 @@
     .main.dark .knob {
         border-color: #606060;
         background-color: #404040;
-        box-shadow: 0px 1px 4px 1px #606060;
+        box-shadow: 0px 1px 4px 1px #202020;
     }
 </style>

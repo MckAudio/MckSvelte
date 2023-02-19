@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { GetOffsetLeft, GetOffsetTop } from "../utils/Tools.svelte";
   import { onMount, onDestroy } from "svelte";
 
@@ -8,6 +8,7 @@
   export let Opener = undefined;
   export let Handler = undefined;
   export let Formatter = undefined;
+  export let style: "dark" | "light" | "custom" = "dark";
 
   let show = false;
   let pos = [0.0, 0.0, 0.0];
@@ -59,6 +60,12 @@
     overflow: hidden;
     display: grid;
     grid-template-columns: 1fr auto;
+    border-radius: 5px;
+  }
+  .opener.dark {
+      background-color: #404040;
+      color: #f0f0f0;
+        box-shadow: 0px 1px 2px 0px #202020;
   }
   .opener:hover {
     background-color: #666;
@@ -91,7 +98,7 @@
   }
 </style>
 
-<div class="opener" bind:this={opener} on:click={OpenSelect} on:touchstart={OpenSelect}>
+<div class="opener {style}" bind:this={opener} on:click={OpenSelect} on:touchstart={OpenSelect}>
 <span class="text">
   {#if value === undefined || value === ''}
     <i>Select</i>

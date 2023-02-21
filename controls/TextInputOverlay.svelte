@@ -126,6 +126,7 @@
         height: 100%;
         display: grid;
         grid-template-rows: auto 1fr auto;
+        z-index: 10;
     }
     .main.dark {
         background-color: #303030aa;
